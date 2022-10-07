@@ -21,11 +21,11 @@ namespace e_Tickets.Data
             base.OnModelCreating(builder);
         }
 
-        private DbSet<Actor> Actors { get; set; }
-        private DbSet<Producer> Producers { get; set; }
-        private DbSet<Cinema> Cinemas { get; set; }
-        private DbSet<Actor_Movie> Actors_Movies { get; set; }
-        private DbSet<Movie> Movies { get; set; }
-        private DbSet<Category> Categories { get; set; }
+        public DbSet<Actor> Actors { get; set; }
+        public DbSet<Producer> Producers { get; set; }
+        public DbSet<Cinema> Cinemas { get; set; }
+        public DbSet<Actor_Movie> Actors_Movies { get; set; }
+        public DbSet<Movie> Movies { get; set; }
+        public DbSet<Category> Categories { get; set; }
     }
 }
