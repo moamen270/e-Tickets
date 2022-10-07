@@ -11,11 +11,11 @@ namespace e_Tickets.Data
             await context.Database.EnsureCreatedAsync();
 
             //Actors
-            if (!context.Set<Actor>().Any())
+            if (!context.Actors.Any())
             {
-                await context.Set<Actor>().AddRangeAsync(new List<Actor>()
+                await context.Actors.AddRangeAsync(new List<Actor>()
                 {
-                     new Actor()
+                    new Actor()
                         {
                             Name = "Actor 1",
                             Bio = "This is the Bio of the first actor",
@@ -49,9 +49,9 @@ namespace e_Tickets.Data
                 context.SaveChanges();
             }
             //Cinemas
-            if (!context.Set<Cinema>().Any())
+            if (!context.Cinemas.Any())
             {
-                context.Set<Cinema>().AddRange(new List<Cinema>()
+                context.Cinemas.AddRange(new List<Cinema>()
                     {
                         new Cinema()
                         {
@@ -87,9 +87,9 @@ namespace e_Tickets.Data
                 context.SaveChanges();
             }
             //Category
-            if (!context.Set<Category>().Any())
+            if (!context.Categories.Any())
             {
-                context.Set<Category>().AddRange(new List<Category>()
+                context.Categories.AddRange(new List<Category>()
                     {
                         new Category()
                         {
@@ -115,9 +115,9 @@ namespace e_Tickets.Data
                 context.SaveChanges();
             }
             //Producers
-            if (!context.Set<Producer>().Any())
+            if (!context.Producers.Any())
             {
-                context.Set<Producer>().AddRange(new List<Producer>()
+                context.Producers.AddRange(new List<Producer>()
                     {
                         new Producer()
                         {
@@ -153,9 +153,9 @@ namespace e_Tickets.Data
                 context.SaveChanges();
             }
             //Movies
-            if (!context.Set<Movie>().Any())
+            if (!context.Movies.Any())
             {
-                context.Set<Movie>().AddRange(new List<Movie>()
+                context.Movies.AddRange(new List<Movie>()
                     {
                         new Movie()
                         {
@@ -233,9 +233,9 @@ namespace e_Tickets.Data
                 context.SaveChanges();
             }
             //Actors & Movies
-            if (!context.Set<Actor_Movie>().Any())
+            if (!context.Actors_Movies.Any())
             {
-                context.Set<Actor_Movie>().AddRange(new List<Actor_Movie>()
+                context.Actors_Movies.AddRange(new List<Actor_Movie>()
                     {
                         new Actor_Movie()
                         {
@@ -248,12 +248,12 @@ namespace e_Tickets.Data
                             MovieId = 1
                         },
 
-                         new Actor_Movie()
+                        new Actor_Movie()
                         {
                             ActorId = 1,
                             MovieId = 2
                         },
-                         new Actor_Movie()
+                        new Actor_Movie()
                         {
                             ActorId = 4,
                             MovieId = 2
