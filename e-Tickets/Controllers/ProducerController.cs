@@ -41,5 +41,13 @@ namespace e_Tickets.Controllers
             _unitOfWork.Save();
             return Redirect(nameof(Index));
         }
+
+        public async Task<IActionResult> Details(int id = 0)
+        {
+            if (id == 0)
+                return NotFound();
+            var obj = await _unitOfWork.Producer.GetAsync(id);
+            return View(obj);
+        }
     }
 }
