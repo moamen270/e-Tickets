@@ -1,4 +1,7 @@
 ﻿using e_Tickets.Data;
+using e_Tickets.Data.Repository.IRepository;
+using e_Tickets.Models;
+using e_Tickets.ViewModel;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
@@ -6,17 +9,35 @@ namespace e_Tickets.Controllers
 {
     public class CategoryController : Controller
     {
-        private readonly ApplicationDbContext _context;
+        private readonly IUnitOfWork _unitOfWork;
 
-        public CategoryController(ApplicationDbContext context)
+        public CategoryController(IUnitOfWork unitOfWork)
         {
-            _context = context;
+            _unitOfWork = unitOfWork;
         }
 
         public async Task<IActionResult> Index()
         {
-            var objList = await _context.Categories.ToListAsync();
+            var objList = await _unitOfWork.Category.GetAllAsync();
             return View(objList);
+        }
+
+        public IActionResult Create()
+        {
+            return View("Form");
+        }
+
+        [HttpPost]
+        public IActionResult Create(CategoryViewModel viewModel)
+        {
+            if (!ModelState.IsValid)
+                return View("Form", viewModel);
+            _unitOfWork.Category.Create(new Category
+            {
+                Name = viewModel.Name
+            });
+            _unitOfWork.Save();
+            return Redirect(nameof(Index));
         }
     }
 }
