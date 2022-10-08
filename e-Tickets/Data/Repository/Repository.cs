@@ -25,7 +25,17 @@ namespace e_Tickets.Data.Repository
             _context.Set<T>().Remove(obj);
         }
 
-        public async Task<IEnumerable<T>> GetAllAsync(Expression<Func<T, bool>>? filter = null, Expression<Func<T, object>>[]? includeProperty = null)
+        public async Task<IEnumerable<T>> GetAllAsync(params Expression<Func<T, object>>[]? includeProperty)
+        {
+            IQueryable<T> query = _context.Set<T>();
+            query = _context.Set<T>();
+            if (includeProperty != null)
+                query = includeProperty.Aggregate(query, (current, includeProperty) => current.Include(includeProperty));
+
+            return await query.ToListAsync();
+        }
+
+        public async Task<IEnumerable<T>> GetAllFilterAsync(Expression<Func<T, bool>>? filter = null, params Expression<Func<T, object>>[]? includeProperty)
         {
             IQueryable<T> query;
             if (filter != null)
@@ -40,7 +50,7 @@ namespace e_Tickets.Data.Repository
 
         public async Task<T> GetAsync(int id) => await _context.Set<T>().FindAsync(id);
 
-        public async Task<T> GetFirstOrDefautlt(Expression<Func<T, bool>>? filter = null, Expression<Func<T, object>>[]? includeProperty = null)
+        public async Task<T> GetFirstOrDefautltAsync(Expression<Func<T, bool>>? filter = null, Expression<Func<T, object>>[]? includeProperty = null)
         {
             IQueryable<T> query;
             if (filter != null)

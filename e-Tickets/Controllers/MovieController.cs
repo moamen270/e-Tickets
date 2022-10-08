@@ -1,4 +1,5 @@
 ﻿using e_Tickets.Data;
+using e_Tickets.Data.Repository.IRepository;
 using e_Tickets.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -9,16 +10,16 @@ namespace e_Tickets.Controllers
 {
     public class MovieController : Controller
     {
-        private readonly ApplicationDbContext _context;
+        private readonly IUnitOfWork _unitOfWork;
 
-        public MovieController(ApplicationDbContext context)
+        public MovieController(IUnitOfWork unitOfWork)
         {
-            _context = context;
+            _unitOfWork = unitOfWork;
         }
 
         public async Task<IActionResult> Index()
         {
-            var objList = await _context.Movies.Include(m => m.Category).Include(m => m.Producer).Include(m => m.Cinema).OrderBy(m => m.Name).ToListAsync();
+            var objList = await _unitOfWork.Movie.GetAllAsync(m => m.Category, m => m.Cinema);
             return View(objList);
         }
     }
